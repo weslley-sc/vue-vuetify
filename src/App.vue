@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary">
+    <v-app-bar app color="primary" dark>
       <v-app-bar-title>Vue + Vuetify</v-app-bar-title>
       <v-spacer></v-spacer>
       <v-btn
@@ -17,29 +17,7 @@
     </v-app-bar>
     <!-- Login -->
     <v-main>
-      <v-card width="500" class="mx-auto mt-5">
-        <v-card-title><h1 class="display-1">Login</h1></v-card-title>
-        <v-card-text>
-          <v-form>
-            <v-text-field
-              label="Username"
-              prepend-icon="mdi-account-circle"
-            ></v-text-field>
-            <v-text-field
-              label="Password"
-              prepend-icon="mdi-lock"
-              :append-icon="exibir ? 'mdi-eye' : 'mdi-eye-off'"
-              :type="exibir ? 'text' : 'password'"
-              @click:append="showhide"
-            ></v-text-field>
-          </v-form>
-        </v-card-text>
-        <v-card-actions>
-          <v-btn color="success">Register</v-btn>
-          <v-spacer></v-spacer>
-          <v-btn color="info">Login</v-btn>
-        </v-card-actions>
-      </v-card>
+      <router-view></router-view>
     </v-main>
       <v-footer
     color="primary lighten-1"
@@ -82,10 +60,6 @@ export default {
     exibir: false,
     links: ["Home", "Login", "Cadastro"],
   }),
-  methods: {
-    showhide() {
-      this.exibir = !this.exibir;
-    },
-  },
+  methods: {},
 };
 </script>
