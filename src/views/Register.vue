@@ -21,8 +21,10 @@
             label="CEP"
             @blur="getCEP"
             v-model="cep"
-            type="number"
-          ></v-text-field>
+            hide-spin-buttons
+            v-mask="['#####-###']"
+          >
+          </v-text-field>
         </v-col>
         <v-col cols="">
           <v-text-field label="Cidade" v-model="cidade"></v-text-field>
@@ -61,9 +63,6 @@
 export default {
   data: () => ({
     cep: "",
-    cepRules : [
-        (v) => (v.length == 8 || "CEP invalido")
-    ],
     cidade: "",
     estado: "",
     valid: true,
@@ -94,22 +93,21 @@ export default {
     },
 
     async getCEP() {
-        if(this.cep.length ===8 ) {
-                  try {
-        const response = await fetch(
-          `https://viacep.com.br/ws/${this.cep}/json/`
-        );
-        const json = await response.json();
-        console.log(json);
-        this.cidade = json.localidade;
-        this.estado = json.uf;
-      } catch (error) {
+      const cepFormatado = this.cep.replace("-", "");
+      if (cepFormatado.length === 8) {
+        try {
+          const response = await fetch(
+            `https://viacep.com.br/ws/${cepFormatado}/json/`
+          );
+          const json = await response.json();
+          this.cidade = json.localidade;
+          this.estado = json.uf;
+        } catch (error) {
           console.log("CEP Inválido", error);
-      }
-        } else {
-            console.log("CEP Inválido")
         }
-
+      } else {
+        console.log("CEP Inválido");
+      }
     },
   },
 };
