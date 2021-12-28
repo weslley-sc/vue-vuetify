@@ -4,15 +4,16 @@
       <v-app-bar-title>Vue + Vuetify</v-app-bar-title>
       <v-spacer></v-spacer>
       <v-btn
-        v-for="link in links"
-        :key="link"
+        v-for="(link, i) in links"
+        :key="i"
 
         color="white"
         text
         rounded
         class="my-2"
+        :to="link.path"
       >
-        {{ link }}
+        {{ link.label }}
       </v-btn>
     </v-app-bar>
     <!-- Login -->
@@ -29,15 +30,16 @@
       no-gutters
     >
       <v-btn
-        v-for="link in links"
-        :key="link"
+        v-for="(link, i) in links"
+        :key="i"
 
         color="white"
         text
         rounded
         class="my-2"
+        :to="link.path"
       >
-        {{ link }}
+        {{ link.label }}
       </v-btn>
       <v-col
         class="primary lighten-2 py-4 text-center white--text"
@@ -58,7 +60,18 @@ export default {
 
   data: () => ({
     exibir: false,
-    links: ["Home", "Login", "Cadastro"],
+    links: [
+      {
+        label:"Home",
+        path: "/"},
+      {
+        label: "Login",
+        path: "/login"
+        },
+      {
+        label:"about",
+        path:"/about"
+        }],
   }),
   methods: {},
 };
